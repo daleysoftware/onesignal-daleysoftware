@@ -4,9 +4,18 @@
         <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
         <script>
             window.OneSignal = window.OneSignal || [];
+
             OneSignal.push(function() {
                 OneSignal.init({
-                appId: "d734f8c9-672f-4176-816b-dc7979f8f5c4",
+                    appId: "d734f8c9-672f-4176-816b-dc7979f8f5c4",
+                });
+
+                OneSignal.on('subscriptionChange', function(isSubscribed) {
+                    if (isSubscribed)
+                        OneSignal.getUserId(function(userId) {
+                            console.log("OneSignal User ID:", userId);
+                            OneSignal.setExternalUserId(userId);
+                        });
                 });
             });
         </script>
